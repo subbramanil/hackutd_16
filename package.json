@@ -1,0 +1,20 @@
+{
+  "name": "alexa_scheduler",
+  "version": "1.0.0",
+  "description": "Alexa nodejs service to talk to google calendar api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "google",
+    "calendar"
+  ],
+  "author": "subbu",
+  "license": "ISC",
+  "dependencies": {
+    "google-auth-library": "^0.9.7",
+    "googleapis": "^4.0.0"
+  }
+}
