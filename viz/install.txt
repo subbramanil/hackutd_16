@@ -1,0 +1,7 @@
+sudo apt-get install python-software-properties -y
+
+sudo apt-get install python-pip -y
+
+sudo pip install flask
+
+sudo pip install redis

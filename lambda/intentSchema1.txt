@@ -1,0 +1,44 @@
+{
+  "intents": [
+    {
+      "intent": "sendTextToContactIntent",
+      "slots": [
+        {
+          "name": "Contact",
+          "type": "LIST_OF_CONTACTS"
+        },
+        {
+          "name": "Message",
+          "type": "AMAZON.LITERAL"
+        }
+      ]
+    },
+    {
+      "intent": "WhatsMyContactsListIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}
+
+
+        
+
+Adam
+Paul
+
+WhatsMyContactsListIntent what's my contact list
+WhatsMyContactsListIntent what is my contact list 
+WhatsMyContactsListIntent who's on my contact list
+WhatsMyContactsListIntent who is on my contact list
+WhatsMyContactsListIntent who can i text 
+WhatsMyContactsListIntent contact list
+WhatsMyContactsListIntent contacts 
+
+sendTextToContactIntent send a text to {Contact} that says {Message}
+sendTextToContactIntent text {Contact} saying {Message}
+sendTextToContactIntent text {Contact} that says {Message}
+sendTextToContactIntent text {Contact} that lets him know that {Message}
+sendTextToContactIntent text {Contact} that lets her know that {Message}
+sendTextToContactIntent text {Contact} with the message {Message}
