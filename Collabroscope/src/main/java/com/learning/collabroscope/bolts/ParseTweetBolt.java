@@ -1,13 +1,12 @@
 package collabroscope.bolts;
 
-import backtype.storm.task.OutputCollector;
-import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichBolt;
-import backtype.storm.tuple.Fields;
-import backtype.storm.tuple.Tuple;
-import backtype.storm.tuple.Values;
-import collabroscope.TweetController;
+import org.apache.storm.task.OutputCollector;
+import org.apache.storm.task.TopologyContext;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseRichBolt;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Tuple;
+import org.apache.storm.tuple.Values;
 
 import java.util.Map;
 
@@ -16,7 +15,7 @@ import java.util.Map;
  */
 public class ParseTweetBolt extends BaseRichBolt {
     // To output tuples from this bolt to the count bolt
-    OutputCollector collector;
+    private OutputCollector collector;
 
     @Override
     public void prepare(
@@ -40,6 +39,6 @@ public class ParseTweetBolt extends BaseRichBolt {
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
         // tell storm the schema of the output tuple for this spout
         // tuple consists of a single column called 'tweet-word'
-        declarer.declare(new Fields("tweet-word"));
+        declarer.declare(new Fields("tweet-user"));
     }
 }

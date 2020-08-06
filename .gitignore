@@ -12,3 +12,5 @@
 hs_err_pid*
 
 Collabroscope/target/
+Collabroscope/.idea/
+Collabroscope/Collabroscope.iml

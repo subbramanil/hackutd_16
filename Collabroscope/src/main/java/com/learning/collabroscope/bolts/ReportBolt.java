@@ -4,13 +4,13 @@ package collabroscope.bolts;
  * Created by Subbu on 2/12/16.
  */
 
-import backtype.storm.task.OutputCollector;
-import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichBolt;
-import backtype.storm.tuple.Tuple;
 import com.lambdaworks.redis.RedisClient;
 import com.lambdaworks.redis.RedisConnection;
+import org.apache.storm.task.OutputCollector;
+import org.apache.storm.task.TopologyContext;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseRichBolt;
+import org.apache.storm.tuple.Tuple;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class ReportBolt extends BaseRichBolt {
     // place holder to keep the connection to redis
-    transient RedisConnection<String, String> redis;
+    private transient RedisConnection<String, String> redis;
 
     @Override
     public void prepare(
@@ -36,10 +36,12 @@ public class ReportBolt extends BaseRichBolt {
     @Override
     public void execute(Tuple tuple) {
         // access the second column 'count'
-        String tweetMsg = tuple.getStringByField("tweet-word");
+        String tweetUser = tuple.getStringByField("tweet-user");
+
+        System.out.println("Tweet User: " + tweetUser);
 
         // publish the word count to redis using word as the key
-        redis.publish("WordCountTopology", "Tweet Msg ID: " + "|" + tweetMsg);
+        redis.publish("WordCountTopology", tweetUser + "|" + tweetUser.length());
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {

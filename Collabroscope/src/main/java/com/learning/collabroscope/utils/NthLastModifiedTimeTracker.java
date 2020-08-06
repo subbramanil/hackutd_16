@@ -1,7 +1,7 @@
 package collabroscope.utils;
 
-import backtype.storm.utils.Time;
 import org.apache.commons.collections.buffer.CircularFifoBuffer;
+import org.apache.storm.utils.Time;
 
 /**
  * This class tracks the time-since-last-modify of a "thing" in a rolling fashion.

@@ -1,17 +1,13 @@
 package collabroscope.spouts;
 
-/**
- * Created by Subbu on 2/12/16.
- */
-
-import backtype.storm.Config;
-import backtype.storm.spout.SpoutOutputCollector;
-import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichSpout;
-import backtype.storm.tuple.Fields;
-import backtype.storm.tuple.Values;
-import backtype.storm.utils.Utils;
+import org.apache.storm.Config;
+import org.apache.storm.spout.SpoutOutputCollector;
+import org.apache.storm.task.TopologyContext;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseRichSpout;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
+import org.apache.storm.utils.Utils;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -56,7 +52,7 @@ public class TweetSpout extends BaseRichSpout {
             TopologyContext topologyContext,
             SpoutOutputCollector spoutOutputCollector) {
         // create the buffer to block tweets
-        queue = new LinkedBlockingQueue<String>(1000);
+        queue = new LinkedBlockingQueue<>(1000);
 
         // save the output collector for emitting tuples
         collector = spoutOutputCollector;
@@ -82,7 +78,7 @@ public class TweetSpout extends BaseRichSpout {
 
         // Filter
         FilterQuery filter = new FilterQuery();
-        String[] keywordsArray = {"#HackUTD"};
+        String[] keywordsArray = {"#GOT"};
         filter.track(keywordsArray);
         twitterStream.filter(filter);
     }
@@ -127,7 +123,8 @@ public class TweetSpout extends BaseRichSpout {
             OutputFieldsDeclarer outputFieldsDeclarer) {
         // tell storm the schema of the output tuple for this spout
         // tuple consists of a single column called 'tweet'
-        outputFieldsDeclarer.declare(new Fields("tweet"));
+        outputFieldsDeclarer.declare(new Fields("tweet-user"));
+//        outputFieldsDeclarer.declare(new Fields("tweet-user"));
     }
 
     // Class for listening on the tweet stream - for twitter4j
@@ -137,7 +134,15 @@ public class TweetSpout extends BaseRichSpout {
         @Override
         public void onStatus(Status status) {
             // add the tweet into the queue buffer
-            queue.offer(status.getText());
+
+            if (isValidTweet(status.getText())) {
+                System.out.println("Twitter Msg: " + status.getText() + " User: " + status.getUser().getName());
+                queue.offer(status.getUser().getName());
+            }
+        }
+
+        private boolean isValidTweet(String text) {
+            return text.contains("ftw");
         }
 
         @Override
